@@ -1,36 +1,52 @@
 def welcome(name):
-    # Returns the welcome message with the specified format
-    message = f"Hello {name} and welcome to the World of Games (WoG).\nHere you can find many cool games to play."
+    # A welcome message that includes the player's name
+    message = (f"Hello {name} and welcome to the world of games (WoG).\n"
+               "Here you can find many cool games to play.")
+    # Return the welcome message
     return message
 
-def load_game():
-    # Prints the game options as specified
-    print("Please choose a game to play:")
-    print("1. Memory Game - a sequence of numbers will appear for 1 second and you have to guess it back.")
-    print("2. Guess Game - guess a number and see if you chose like the computer.")
-    print("3. Currency Roulette - try and guess the value of a random amount of USD in ILS.")
-    
-    # Prompt the user to select a game and ensure the input is valid (1-3)
-    while True:
-        try:
-            game_choice = int(input("Enter the number of the game you want to play (1-3): "))
-            if 1 <= game_choice <= 3:
-                break
-            else:
-                print("Invalid choice. Please choose a number between 1 and 3.")
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-    
-    # Prompt the user to select a difficulty level and ensure the input is valid (1-5)
-    while True:
-        try:
-            difficulty = int(input("Please choose game difficulty from 1 to 5: "))
-            if 1 <= difficulty <= 5:
-                break
-            else:
-                print("Invalid choice. Please choose a number between 1 and 5.")
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-    
-    # Return the chosen game number and difficulty level
-    return game_choice, difficulty
+
+def load_game(message, lowOption, highOption, option):
+    # Display the game or difficulty selection message to the player
+    print(message)
+    # Prompt the player to choose an option within the specified range
+    number = int(input(f"Enter your choice {lowOption}-{highOption}: "))
+
+    # Validate that the entered number is within the specified range
+    while lowOption < number > highOption:
+        # Inform the player of their choice
+        print(f'You chose {option} : {number}')
+        # Prompt the player to enter a valid choice
+        number = int(input(f"Enter your choice {lowOption}-{highOption}: "))
+        # Display the message again for the new input
+        print(message)
+
+    # Return the valid number chosen by the player
+    return number
+
+def welcome(name):
+    # A welcome message that includes the player's name
+    message = (f"Hello {name} and welcome to the world of games (WoG).\n"
+               "Here you can find many cool games to play.")
+    # Return the welcome message
+    return message
+
+
+def load_game(message, lowOption, highOption, option):
+    # Display the game or difficulty selection message to the player
+    print(message)
+    # Prompt the player to choose an option within the specified range
+    number = int(input(f"Enter your choice {lowOption}-{highOption}: "))
+
+    # Validate that the entered number is within the specified range
+    while lowOption < number > highOption:
+        # Inform the player of their choice
+        print(f'You chose {option} : {number}')
+        # Prompt the player to enter a valid choice
+        number = int(input(f"Enter your choice {lowOption}-{highOption}: "))
+        # Display the message again for the new input
+        print(message)
+
+    # Return the valid number chosen by the player
+    return number
+

@@ -1,28 +1,35 @@
+# This file’s sole purpose is to serve the user’s score from the scores.txt file over HTTP with 
+# HTML using Python’s Flask library.
+
+# Import necessary functions and modules
 from Score import read_score
 from flask import Flask
 
-# Flask constructor takes the name of 
-# current module (__name__) as argument.
+# Create a Flask application object
 app = Flask(__name__)
 
-# The route() function of the Flask class is a decorator, 
-# which tells the application which URL should call 
-# the associated function.
+# Define the route for the root URL ('/')
 @app.route('/')
-# ‘/’ URL is bound with hello_world() function.
+# The function associated with the root URL
 def worldOfGame():
-
+    # Read the score from the scores file
     score = read_score()
-    print(score)
+    print(score)  # Print the score to the console for debugging
+
+    # Check if the score is valid
     if score:
-        massage = "<html> <head> <title>Scores Game</title> </head> <body> <h1>The score is : <div id='score'>" + score + "</div></h1> </body></html>"
-    else :    
-        errorMassage = "<html> <head> <title>Scores Game</title> </head> <body> <h1><div id='score' style='color:red'>" + score + "</div></h1> </body></html>"
-    return massage
+        # Create an HTML response displaying the score
+        message = "<html> <head> <title>Scores Game</title> </head> <body> <h1>The score is : <div id='score'>" + score + "</div></h1> </body></html>"
+    else:
+        # Create an HTML response indicating an error with the score
+        errorMessage = "<html> <head> <title>Scores Game</title> </head> <body> <h1><div id='score' style='color:red'>" + score + "</div></h1> </body></html>"
+        # Return the error message if the score is not valid
+        return errorMessage
 
-# main driver function
+    # Return the message displaying the score
+    return message
+
+# Main driver function
 if __name__ == '__main__':
-
-    # run() method of Flask class runs the application 
-    # on the local development server.
+    # Run the Flask application on the local development server
     app.run(host='0.0.0.0')

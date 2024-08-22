@@ -1,28 +1,39 @@
-# 1. test_scores_service - it’s purpose is to test our web service. It will get the application 
-# URL as an input, open a browser to that URL, select the score element in our web page, 
-# check that it is a number between 1 to 1000 and return a boolean value if it’s true or not. 
-# 2. main_function to call our tests function. The main function will return -1 as an OS exit 
-# code if the tests failed and 0 if they passed.
 from bs4 import BeautifulSoup
 import requests as req
 
+# Function to test the score service
 def test_scores_service():
-  
-    # Requesting for the website
-    Web = req.get('http://127.0.0.1:5000') 
-    to_return = False 
-    # Creating a BeautifulSoup object and specifying the parser 
-    S = BeautifulSoup(Web.content,"html.parser")
+    # Send a request to the local website and get the response
+    Web = req.get('http://127.0.0.1:5000')
+    
+    # Initialize the return value as False
+    to_return = False
+    
+    # Parse the website content using BeautifulSoup and specify the HTML parser
+    S = BeautifulSoup(Web.content, "html.parser")
+    
+    # Find the div with the id "score" and get its text content
     div_text = S.find("div", {"id": "score"}).get_text()
-    if div_text > 0 and div_text < 1000:
-        to_return = True
+    
+    # Check if the score is between 0 and 1000
+    if 0 < int(div_text) < 1000:
+        to_return = True  # Set return value to True if the score is valid
+    
+    # Return the result of the check
     return to_return
 
+# Main function to call the test and print the result
 def main_function():
+    # Initialize the return value as -1 (indicating an error by default)
     to_return = -1
+    
+    # If the score service test passes (returns True)
     if test_scores_service():
-        print("ok")
-        to_return = 0
+        print("ok")  # Print "ok"
+        to_return = 0  # Set return value to 0 (indicating success)
+    
+    # Return the final result
     return to_return
 
+# Call the main function
 main_function()

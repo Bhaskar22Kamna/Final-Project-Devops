@@ -1,41 +1,36 @@
-# A package that is in charge of managing the scores file.
-# The scores file at this point will consist of only a number. That number is the accumulation of the
-# winnings of the user. Amount of points for winning a game is as follows:
-# POINTS_OF_WINNING = (DIFFICULTY X 3) + 5
-# Each time the user is winning a game, the points he one will be added to his current amount of
-# point saved in a file.
-
-# add_score - The function’s input is a variable called difficulty. The function will try to read
-# the current score in the scores file, if it fails it will create a new one and will use it to save
-# the current score.
-
-
 from Utils import SCORES_FILE_NAME
 
 def add_score(difficulty):
+    # Calculate the points based on the difficulty level
     points_of_winning = difficulty * 3 + 5
+    
+    # Open the scores file to read the current score
     fr = open(SCORES_FILE_NAME, 'r')
-    file_score = fr.read()
-    fr.close()
-
+    file_score = fr.read()  # Read the score from the file
+    fr.close()  # Close the file after reading
+    
+    # If the file is empty, set the score to 0
     if not file_score:
         file_score = 0
-
-    new_score = int(file_score) + points_of_winning
-    new_score_w = str(new_score)
-    #print(f"your new score is : {new_score}")
-    fw = open(SCORES_FILE_NAME, 'w')
-    fw.write(new_score_w)
-    fw.close()
     
+    # Calculate the new score by adding the points from the win
+    new_score = int(file_score) + points_of_winning
+    new_score_w = str(new_score)  # Convert the new score to a string
+    
+    # Open the scores file to write the new score
+    fw = open(SCORES_FILE_NAME, 'w')
+    fw.write(new_score_w)  # Write the new score to the file
+    fw.close()  # Close the file after writing
 
 def read_score():
     try:
+        # Open the scores file to read the current score
         fr = open(SCORES_FILE_NAME, 'r')
-        file_score = fr.read()
-        # new_score_w = file_score
-        fr.close()
+        file_score = fr.read()  # Read the score from the file
+        fr.close()  # Close the file after reading
     except:
+        # If there is an error (e.g., file not found), return an error message
         file_score = "file not found"
+    
+    # Return the score or error message
     return file_score
-
