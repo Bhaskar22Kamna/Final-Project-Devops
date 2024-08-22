@@ -1,0 +1,8 @@
+version: '2'
+services:
+maingame:
+  build: 
+    context: .
+  ports:
+  - 5000:5000
+  image: finalproject/maingame:0.1
